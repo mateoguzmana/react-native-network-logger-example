@@ -9,8 +9,7 @@
   "dependencies": {
     "react": "16.4.1",
     "react-native": "0.56.0",
-    "react-native-background-fetch": "^2.0.8",
-    "react-native-background-task": "^0.2.1",
+    "react-native-background-fetch": "^2.4.3",
     "react-native-network-info": "^3.2.2"
   },
   "devDependencies": {
