@@ -3,23 +3,68 @@
  * https://facebook.github.io/react-native/docs/netinfo
  */
 
-import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import React, { Component } from "react";
+import { NetInfo, StyleSheet, Text, View } from "react-native";
+import { NetworkInfo } from "react-native-network-info";
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+export default class App extends Component {
+  componentDidMount() {
+    NetInfo.getConnectionInfo().then(connectionInfo => {
+      console.log(
+        "Initial, type: " +
+          connectionInfo.type +
+          ", effectiveType: " +
+          connectionInfo.effectiveType
+      );
+    });
+    function handleFirstConnectivityChange(connectionInfo) {
+      console.log(
+        "First change, type: " +
+          connectionInfo.type +
+          ", effectiveType: " +
+          connectionInfo.effectiveType
+      );
+      NetInfo.removeEventListener(
+        "connectionChange",
+        handleFirstConnectivityChange
+      );
+    }
+    NetInfo.addEventListener("connectionChange", handleFirstConnectivityChange);
 
-export default class App extends Component> {
+    // Get Local IP
+    NetworkInfo.getIPAddress(ip => {
+      console.log(ip);
+    });
+
+    // Get IPv4 IP
+    NetworkInfo.getIPV4Address(ipv4 => {
+      console.log(ipv4);
+    });
+
+    // Get Broadcast
+    NetworkInfo.getBroadcast(address => {
+      console.log(address);
+    });
+
+    // Get SSID
+    NetworkInfo.getSSID(ssid => {
+      console.log(ssid);
+    });
+
+    // Get BSSID
+    NetworkInfo.getBSSID(ssid => {
+      console.log(ssid);
+    });
+
+    navigator.geolocation.getCurrentPosition(geo_success => {
+      console.log(geo_success)
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text style={styles.intro}>React Native Network Logger Example</Text>
       </View>
     );
   }
@@ -28,18 +73,13 @@ export default class App extends Component> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F5FCFF"
   },
-  welcome: {
+  intro: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
+    textAlign: "center",
+    margin: 10
+  }
 });

@@ -1,4 +1,6 @@
 rootProject.name = 'networklogger'
+include ':react-native-network-info'
+project(':react-native-network-info').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-network-info/android')
 include ':react-native-background-task'
 project(':react-native-background-task').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-background-task/android')
 
