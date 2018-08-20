@@ -6,7 +6,9 @@ export default class App extends Component {
   networkMonitor = new NetworkMonitor();
 
   componentDidMount() {
-    this.networkMonitor.start();
+    this.networkMonitor.start(data => {
+      console.log(data)
+    });
   }
 
   render() {
