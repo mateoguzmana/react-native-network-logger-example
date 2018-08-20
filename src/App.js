@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import NetworkMonitor from "./NetworkMonitor";
+import NetworkMonitor from "react-native-network-monitor";
 
 export default class App extends Component {
   networkMonitor = new NetworkMonitor();
