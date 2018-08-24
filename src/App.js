@@ -6,15 +6,21 @@ export default class App extends Component {
   networkMonitor = new NetworkMonitor();
 
   componentDidMount() {
-    this.networkMonitor.start(data => {
-      console.log(data)
-    });
+    this.networkMonitor.start(
+      {
+        minimumFetchInterval: 15,
+        stopOnTerminate: false,
+        startOnBoot: true
+      },
+      data => console.log(data),
+      err => console.log(err)
+    );
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.intro}>React Native Network Logger Example</Text>
+        <Text style={styles.intro}>React Native Network Monitor Example</Text>
       </View>
     );
   }
