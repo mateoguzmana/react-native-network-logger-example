@@ -3,15 +3,14 @@ import { StyleSheet, Text, View } from "react-native";
 import NetworkMonitor from "react-native-network-monitor";
 
 export default class App extends Component {
-  networkMonitor = new NetworkMonitor();
+  networkMonitor = new NetworkMonitor({
+    minimumFetchInterval: 15,
+    stopOnTerminate: false,
+    startOnBoot: true
+  });
 
   componentDidMount() {
     this.networkMonitor.start(
-      {
-        minimumFetchInterval: 15,
-        stopOnTerminate: false,
-        startOnBoot: true
-      },
       data => console.log(data),
       err => console.log(err)
     );
